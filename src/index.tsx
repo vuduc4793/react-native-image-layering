@@ -1,4 +1,5 @@
 import { NativeModules, Platform } from 'react-native';
+import type { CombinedImage } from './types';
 
 const LINKING_ERROR =
   `The package 'react-native-image-layering' doesn't seem to be linked. Make sure: \n\n` +
@@ -19,4 +20,8 @@ const ImageLayering = NativeModules.ImageLayering
 
 export function multiply(a: number, b: number): Promise<number> {
   return ImageLayering.multiply(a, b);
+}
+
+export function imageLayering(imageOne: string, imageTwo: string): Promise<CombinedImage> {
+  return ImageLayering.imageLayering(imageOne, imageTwo);
 }
