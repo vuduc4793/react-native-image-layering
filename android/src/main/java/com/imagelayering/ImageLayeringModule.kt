@@ -83,7 +83,7 @@ class ImageLayeringModule(reactContext: ReactApplicationContext) :
       fileOutputStream.flush()
       fileOutputStream.close()
       val response = Arguments.createMap().apply {
-        putString("path", file.absolutePath)
+        putString("filePath", file.absolutePath)
         putInt("width", image2.width)
         putInt("height", image2.height)
       }
