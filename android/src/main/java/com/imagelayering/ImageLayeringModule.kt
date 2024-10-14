@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Environment
 import android.util.Base64
+import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
@@ -81,7 +82,12 @@ class ImageLayeringModule(reactContext: ReactApplicationContext) :
       combinedImage.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
       fileOutputStream.flush()
       fileOutputStream.close()
-      promise.resolve(mapOf("path" to file.absolutePath, "width" to image2.width, "height" to image2.height))
+      val response = Arguments.createMap().apply {
+        putString("path", file.absolutePath)
+        putInt("width", image2.width)
+        putInt("height", image2.height)
+      }
+      promise.resolve(response)
       println("Saved the merged image to: ${file.absolutePath}")
     } catch (e: Exception){
       promise.reject(e)
