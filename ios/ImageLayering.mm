@@ -59,12 +59,12 @@ RCT_EXPORT_METHOD(imageLayering:(NSString*)layer_one
 - (void)mergeImagesAndSave:(UIImage *)image1 overlayImage:(UIImage *)image2 
                    resolve:(RCTPromiseResolveBlock)resolve
                     reject:(RCTPromiseRejectBlock)reject {
-    CGSize size = CGSizeMake(image2.size.width, image2.size.height);
     
-    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
+    CGSize resizedSize = CGSizeMake(image2.size.width / 3, image2.size.height / 3);
+    UIGraphicsBeginImageContextWithOptions(resizedSize, NO, 0.0);
     
-    [image1 drawInRect:CGRectMake(0, 0, image2.size.width, image2.size.height)];
-    [image2 drawInRect:CGRectMake(0, 0, image2.size.width, image2.size.height) blendMode:kCGBlendModeNormal alpha:1.0];
+    [image1 drawInRect:CGRectMake(0, 0, resizedSize.width, resizedSize.height)];
+    [image2 drawInRect:CGRectMake(0, 0, resizedSize.width, resizedSize.height) blendMode:kCGBlendModeNormal alpha:1.0];
     
     UIImage *combinedImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
