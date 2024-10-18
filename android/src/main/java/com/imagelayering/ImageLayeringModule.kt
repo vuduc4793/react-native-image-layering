@@ -2,7 +2,6 @@ package com.imagelayering
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.os.Environment
 import android.util.Base64
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.Promise
@@ -61,6 +60,10 @@ class ImageLayeringModule(reactContext: ReactApplicationContext) :
   }
 
   private fun mergeImagesAndSave(image1: Bitmap, image2: Bitmap, promise: Promise) {
+
+
+    // Parse and verity options
+    val context = reactApplicationContext
     val combinedImage = Bitmap.createBitmap(
       image2.width,
       image2.height,
@@ -70,13 +73,8 @@ class ImageLayeringModule(reactContext: ReactApplicationContext) :
     val canvas = android.graphics.Canvas(combinedImage)
     canvas.drawBitmap(image1, 0f, 0f, null)
     canvas.drawBitmap(image2, 0f, 0f, null)
-    val filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).absolutePath +
-      "/RNImageLayering"
-    val dir = File(filePath)
-    if(!dir.exists()) {
-      dir.mkdirs()
-    }
-    val file = File(dir, UUID.randomUUID().toString() + ".png")
+    val filePath = context.cacheDir
+    val file = File.createTempFile("RNImageLayering", ".png", filePath)
     val fileOutputStream = FileOutputStream(file)
     try {
       combinedImage.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
