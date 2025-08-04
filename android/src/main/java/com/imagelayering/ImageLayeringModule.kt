@@ -67,7 +67,7 @@ class ImageLayeringModule(reactContext: ReactApplicationContext) :
     val combinedImage = Bitmap.createBitmap(
       image2.width,
       image2.height,
-      image1.config
+      image1.config ?: Bitmap.Config.ARGB_8888
     )
 
     val canvas = android.graphics.Canvas(combinedImage)
