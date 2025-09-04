@@ -1,6 +1,6 @@
 {
   "name": "react-native-image-layering",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "This library helps to create a new image from 2 images, with image 2 being the layer of image 1.",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
