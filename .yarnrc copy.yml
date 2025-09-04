@@ -1,0 +1,9 @@
+supportedArchitectures:
+    os:
+        - 'darwin'
+        - 'linux'
+        - 'win32'
+    cpu:
+        - 'arm'
+        - 'arm64'
+        - 'x64'
